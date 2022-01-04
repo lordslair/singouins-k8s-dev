@@ -1,0 +1,148 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  namespace: singouins-dev
+  name: sep-backend-discord
+  labels:
+    tier: sep-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord
+      tier: sep-backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+      labels:
+        app: discord
+        tier: sep-backend
+    spec:
+      restartPolicy: Always
+
+      containers:
+      - name: sep-backend-discord-babi
+        image: singouins/discord:44afc9d
+        imagePullPolicy: Always
+        command: ["/code/babi.py"]
+#        command: ["/bin/sh"]
+#        args: ["-c", "while :; do sleep 12h; done;"]
+        resources:
+          limits:
+            memory: 64Mi
+            cpu: 100m
+          requests:
+            memory: 32Mi
+            cpu: 10m
+        env:
+        # Discord env vars
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-discord-secret
+              key: token-babi
+        # App env vars
+        - name: SEP_API_URL
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-api-secret
+              key: api-url
+        - name: SEP_ADMIN_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-discord-secret
+              key: admin-token
+        # PCS variables
+        - name: SEP_PCS_URL
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-pcs-secret
+              key: pcs-url-public
+        # Redis variables
+        - name: SEP_REDIS_DB
+          value: '1' # 1: Prototype | 0: Production
+        # Other env vars
+        - name: PYTHONUNBUFFERED
+          value: 'True'
+        - name: PYTHONIOENCODING
+          value: 'UTF-8'
+
+      - name: sep-backend-discord-hapi
+        image: singouins/discord:44afc9d
+        imagePullPolicy: Always
+        command: ["/code/hapi.py"]
+#        command: ["/bin/sh"]
+#        args: ["-c", "while :; do sleep 12h; done;"]
+        resources:
+          limits:
+            memory: 64Mi
+            cpu: 50m
+          requests:
+            memory: 32Mi
+            cpu: 10m
+        env:
+        # Discord env vars
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-discord-secret
+              key: token-hapi
+        # App env vars
+        - name: SEP_API_URL
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-api-secret
+              key: api-url # PROD url
+        - name: SEP_ADMIN_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-discord-secret
+              key: admin-token
+        # PCS variables
+        - name: SEP_PCS_URL
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-pcs-secret
+              key: pcs-url-public
+        # Redis variables
+        - name: SEP_REDIS_DB
+          value: '1' # 1: Prototype | 0: Production
+        # Other env vars
+        - name: PYTHONUNBUFFERED
+          value: 'True'
+        - name: PYTHONIOENCODING
+          value: 'UTF-8'
+
+      - name: sep-backend-discord-exporter
+        image: lordslair/discord-prometheus-exporter
+        imagePullPolicy: Always
+#        command: ["/bin/sh"]
+#        args: ["-c", "while :; do sleep 12h; done;"]
+        resources:
+          limits:
+            memory: 32Mi
+            cpu: 50m
+          requests:
+            memory: 32Mi
+            cpu: 10m
+        env:
+        # Discord env vars
+        - name: EXPORTER_PORT
+          value: '8080'
+        - name: POLLING_INTERVAL
+          value: '10'
+        - name: DISCORD_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-discord-secret
+              key: token-hapi
+        # Other env vars
+        - name: PYTHONUNBUFFERED
+          value: 'True'
+        - name: PYTHONIOENCODING
+          value: 'UTF-8'
