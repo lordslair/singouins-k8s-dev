@@ -65,7 +65,10 @@ spec:
               key: pcs-url-public
         # Redis variables
         - name: SEP_REDIS_DB
-          value: '1' # 1: Prototype | 0: Production
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-redis-secret
+              key: redis-base
         # Other env vars
         - name: PYTHONUNBUFFERED
           value: 'True'
@@ -111,7 +114,10 @@ spec:
               key: pcs-url-public
         # Redis variables
         - name: SEP_REDIS_DB
-          value: '1' # 1: Prototype | 0: Production
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-redis-secret
+              key: redis-base
         # Other env vars
         - name: PYTHONUNBUFFERED
           value: 'True'
