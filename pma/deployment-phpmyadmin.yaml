@@ -33,10 +33,15 @@ spec:
             - name: PMA_HOST
               valueFrom:
                 secretKeyRef:
-                  name: sep-backend-mysql-secret
-                  key: mysql-host
+                  name: sep-backend-mariadb-secret
+                  key: mariadb-host
             - name: PMA_PORT
               valueFrom:
                 secretKeyRef:
-                  name: sep-backend-mysql-secret
-                  key: mysql-port
+                  name: sep-backend-mariadb-secret
+                  key: mariadb-port
+            # App variables
+            - name: MEMORY_LIMIT
+              value: '128M'
+            - name: UPLOAD_LIMIT
+              value: '50M'
