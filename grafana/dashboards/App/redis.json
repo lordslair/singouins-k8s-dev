@@ -24,7 +24,7 @@
   "gnetId": 763,
   "graphTooltip": 0,
   "id": 8,
-  "iteration": 1641318153194,
+  "iteration": 1641636640264,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1150,15 +1150,15 @@
           "type": "prometheus",
           "uid": "VxYL962nk"
         },
-        "definition": "label_values(redis_up, instance)",
+        "definition": "label_values(redis_up{kubernetes_namespace=\"singouins-dev\"}, instance)",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(redis_up, instance)",
-          "refId": "Prometheus-instance-Variable-Query"
+          "query": "label_values(redis_up{kubernetes_namespace=\"singouins-dev\"}, instance)",
+          "refId": "StandardVariableQuery"
         },
         "refresh": 2,
         "regex": "",
@@ -1203,6 +1203,6 @@
   "timezone": "browser",
   "title": "App | Redis Dashboard",
   "uid": "FakWKRo7z",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }

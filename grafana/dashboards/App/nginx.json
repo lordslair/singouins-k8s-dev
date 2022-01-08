@@ -23,7 +23,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 9,
-  "iteration": 1641318186171,
+  "iteration": 1641636557659,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -475,7 +475,7 @@
           "type": "prometheus",
           "uid": "VxYL962nk"
         },
-        "definition": "label_values(nginx_up, instance)",
+        "definition": "label_values(nginx_up{kubernetes_namespace=\"singouins-dev\"}, instance)",
         "hide": 0,
         "includeAll": true,
         "label": "",
@@ -483,8 +483,8 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(nginx_up, instance)",
-          "refId": "Prometheus-instance-Variable-Query"
+          "query": "label_values(nginx_up{kubernetes_namespace=\"singouins-dev\"}, instance)",
+          "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -529,6 +529,6 @@
   "timezone": "",
   "title": "App | Nginx Dashboard",
   "uid": "MsjffzSZz",
-  "version": 7,
+  "version": 8,
   "weekStart": ""
 }
