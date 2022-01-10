@@ -29,12 +29,12 @@ spec:
       - name: sep-backend-api
         #command: ["/bin/sh"]
         #args: ["-c", "while :; do sleep 12h; done;"]
-        image: singouins/api:latest
+        image: lordslair/api:1c720a8
         imagePullPolicy: Always
         resources:
           limits:
             memory: 256Mi
-            cpu: 600m
+            cpu: 500m
           requests:
             memory: 128Mi
             cpu: 50m
@@ -95,6 +95,11 @@ spec:
             secretKeyRef:
               name: sep-backend-mariadb-secret
               key: mariadb-host
+        - name: SEP_MYSQL_PORT
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-mariadb-secret
+              key: mariadb-port
         # SMTP variables
         - name: SEP_SMTP_FROM
           valueFrom:
