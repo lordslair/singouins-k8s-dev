@@ -27,7 +27,7 @@ spec:
 
       containers:
       - name: sep-backend-discord-babi
-        image: singouins/discord:44afc9d
+        image: lordslair/discord:latest
         imagePullPolicy: Always
         command: ["/code/babi.py"]
 #        command: ["/bin/sh"]
@@ -62,7 +62,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: sep-backend-pcs-secret
-              key: pcs-url-public
+              key: pcs-public-url
         # Redis variables
         - name: SEP_REDIS_DB
           valueFrom:
@@ -76,7 +76,7 @@ spec:
           value: 'UTF-8'
 
       - name: sep-backend-discord-hapi
-        image: singouins/discord:44afc9d
+        image: lordslair/discord:latest
         imagePullPolicy: Always
         command: ["/code/hapi.py"]
 #        command: ["/bin/sh"]
@@ -111,7 +111,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: sep-backend-pcs-secret
-              key: pcs-url-public
+              key: pcs-public-url
         # Redis variables
         - name: SEP_REDIS_DB
           valueFrom:
@@ -125,7 +125,7 @@ spec:
           value: 'UTF-8'
 
       - name: sep-backend-discord-exporter
-        image: lordslair/discord-prometheus-exporter
+        image: lordslair/discord-prometheus-exporter:latest
         imagePullPolicy: Always
 #        command: ["/bin/sh"]
 #        args: ["-c", "while :; do sleep 12h; done;"]
