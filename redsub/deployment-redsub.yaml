@@ -24,7 +24,7 @@ spec:
 
       containers:
       - name: sep-backend-redis-sub
-        image: singouins/redsub:latest
+        image: lordslair/redsub:daf068f
         resources:
           limits:
             memory: 32Mi
