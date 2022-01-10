@@ -27,7 +27,7 @@ spec:
 
       containers:
       - name: sep-backend-ws
-        image: singouins/ws:latest
+        image: lordslair/ws:latest
         imagePullPolicy: Always
         resources:
           limits:
