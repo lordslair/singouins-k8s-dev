@@ -28,6 +28,7 @@ spec:
       containers:
       - name: sep-backend-redis
         image: redis:6.0-alpine
+        command: ["redis-server", "/etc/redis/redis.conf"]
         resources:
           limits:
             memory: 64Mi
@@ -37,7 +38,10 @@ spec:
             cpu: 10m
         ports:
         - containerPort: 6379
-      - name: redis-exporter
+        volumeMounts:
+        - mountPath: /etc/redis
+          name: config
+      - name: sep-backend-redis-exporter
         image: oliver006/redis_exporter:v1.6.0
         resources:
           limits:
@@ -48,3 +52,11 @@ spec:
             cpu: 10m
         ports:
         - containerPort: 9121
+
+      volumes:
+      - name: config
+        configMap:
+          name: sep-backend-redis-conf
+          items:
+          - key: redis-conf
+            path: redis.conf
