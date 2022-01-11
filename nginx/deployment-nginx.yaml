@@ -24,16 +24,6 @@ spec:
         tier: sep-backend
     spec:
 
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - nodepool-b9ea22df-ec7f-4761-bc-node-228be5
-
       containers:
       - name: sep-backend-nginx
         image: nginx:1.20-alpine
