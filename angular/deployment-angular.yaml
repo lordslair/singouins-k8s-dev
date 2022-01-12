@@ -19,22 +19,19 @@ spec:
         tier: sep-backend
     spec:
 
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - nodepool-b9ea22df-ec7f-4761-bc-node-228be5
-
       containers:
       - name: sep-backend-angular
         image: singouins/ng-cli:12
         command: ["/bin/sh"]
         args: ["-c", "while true; do sleep 10;done"]
         imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 2048Mi
+            cpu: 1000m
+          requests:
+            memory: 128Mi
+            cpu: 50m
         env:
           - name: BUILD_TYPE
             value: 'proto'
@@ -42,32 +39,32 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: sep-backend-angular-secret
-                key: gitrepo
+                key: angular-git-repo
           - name: GIT_USER
             valueFrom:
               secretKeyRef:
                 name: sep-backend-angular-secret
-                key: gituser
+                key: angular-git-user
           - name: GIT_TOKEN
             valueFrom:
               secretKeyRef:
                 name: sep-backend-angular-secret
-                key: gittoken
+                key: angular-git-token
           - name: QUIET
             valueFrom:
               secretKeyRef:
                 name: sep-backend-angular-secret
-                key: quiet
+                key: angular-build-quiet
           - name: OUTPUT_PATH
             valueFrom:
               secretKeyRef:
                 name: sep-backend-angular-secret
-                key: outputpath
+                key: angular-output-path
           - name: OUTPUT_FOLDER
             valueFrom:
               secretKeyRef:
                 name: sep-backend-angular-secret
-                key: outputfolderproto
+                key: angular-output-folder
         volumeMounts:
          - name: websites
            mountPath: /websites

@@ -3,7 +3,7 @@ kind: CronJob
 
 metadata:
   namespace: singouins-dev
-  name: sep-backend-cronjob-angular
+  name: sep-backend-angular-cronjob
   labels:
     tier: sep-backend
 spec:
@@ -15,20 +15,17 @@ spec:
         spec:
           restartPolicy: Never
 
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                  - matchExpressions:
-                    - key: kubernetes.io/hostname
-                      operator: In
-                      values:
-                        - nodepool-b9ea22df-ec7f-4761-bc-node-228be5
-
           containers:
           - name: sep-backend-angular
             image: singouins/ng-cli:12
             imagePullPolicy: Always
+            resources:
+              limits:
+                memory: 2048Mi
+                cpu: 1000m
+              requests:
+                memory: 128Mi
+                cpu: 50m
             env:
               - name: BUILD_TYPE
                 value: 'proto'
