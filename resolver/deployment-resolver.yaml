@@ -24,13 +24,13 @@ spec:
 
       containers:
       - name: sep-backend-resolver
-        image: singouins/resolver:prebuiltprod
+        image: lordslair/resolver:latest
         #command: ["/bin/sh"]
         #args: ["-c", "while :; do sleep 12h; done;"]
         resources:
           limits:
             memory: 512Mi
-            cpu: 1000m
+            cpu: 500m
           requests:
             memory: 16Mi
             cpu: 10m
@@ -43,19 +43,19 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: sep-backend-resolver-secret
-                key: gitrepo
+                key: resolver-git-repo
           - name: GIT_USER
             valueFrom:
               secretKeyRef:
                 name: sep-backend-resolver-secret
-                key: gituser
+                key: resolver-git-user
           - name: GIT_TOKEN
             valueFrom:
               secretKeyRef:
                 name: sep-backend-resolver-secret
-                key: gittoken
+                key: resolver-git-token
           - name: APP_PATH
             valueFrom:
               secretKeyRef:
                 name: sep-backend-resolver-secret
-                key: apppath
+                key: resolver-app-path
