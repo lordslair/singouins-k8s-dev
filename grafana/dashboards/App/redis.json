@@ -23,15 +23,15 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 763,
   "graphTooltip": 0,
-  "id": 8,
-  "iteration": 1641636640264,
+  "id": 10,
+  "iteration": 1641990686309,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "VxYL962nk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -94,6 +94,10 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "expr": "max(max_over_time(redis_uptime_in_seconds{instance=~\"$instance\"}[$__interval]))",
           "format": "time_series",
           "interval": "",
@@ -172,7 +176,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "VxYL962nk"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "redis_connected_clients{instance=~\"$instance\"}",
@@ -192,7 +196,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "VxYL962nk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -347,7 +351,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "VxYL962nk"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "rate(redis_commands_processed_total{instance=~\"$instance\"}[1m])",
@@ -367,7 +371,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "VxYL962nk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -472,7 +476,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "VxYL962nk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -663,7 +667,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "VxYL962nk"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "rate(redis_net_input_bytes_total{instance=~\"$instance\"}[5m])",
@@ -677,7 +681,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "VxYL962nk"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "rate(redis_net_output_bytes_total{instance=~\"$instance\"}[5m])",
@@ -693,63 +697,83 @@
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "VxYL962nk"
+        "uid": "${datasource}"
       },
-      "editable": true,
-      "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 70,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
         },
         "overrides": []
       },
-      "fill": 7,
-      "fillGradient": 0,
-      "grid": {},
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 14
       },
-      "hiddenSeries": false,
       "id": 16,
-      "isNew": true,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
       "links": [],
-      "nullPointMode": "connected",
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
       },
-      "percentage": false,
       "pluginVersion": "8.3.3",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
       "targets": [
         {
           "expr": "sum (redis_db_keys{instance=~\"$instance\"}) by (db)",
@@ -762,41 +786,13 @@
           "target": ""
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Total Items per DB",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "none",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "VxYL962nk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -896,7 +892,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "VxYL962nk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1043,7 +1039,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "VxYL962nk"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1143,12 +1139,12 @@
       {
         "current": {
           "selected": false,
-          "text": "10.2.1.20:9121",
-          "value": "10.2.1.20:9121"
+          "text": "10.2.0.23:9121",
+          "value": "10.2.0.23:9121"
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "VxYL962nk"
+          "uid": "${datasource}"
         },
         "definition": "label_values(redis_up{kubernetes_namespace=\"singouins-dev\"}, instance)",
         "hide": 0,
@@ -1168,11 +1164,28 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
