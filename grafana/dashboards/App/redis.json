@@ -24,7 +24,7 @@
   "gnetId": 763,
   "graphTooltip": 0,
   "id": 10,
-  "iteration": 1641990686309,
+  "iteration": 1642244929871,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -148,7 +148,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 4,
         "w": 2,
         "x": 2,
         "y": 0
@@ -474,48 +474,24 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
           },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
             }
-          },
-          "mappings": [],
-          "min": 0,
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -529,68 +505,55 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "none"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "max"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#BF1B00",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 7
+        "h": 4,
+        "w": 2,
+        "x": 2,
+        "y": 4
       },
-      "id": 7,
+      "hideTimeOverride": true,
+      "id": 17,
       "links": [],
+      "maxDataPoints": 100,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right"
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single"
-        }
+        "textMode": "auto"
       },
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          "expr": "redis_memory_used_bytes{instance=~\"$instance\"} ",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "redis_config_maxclients{instance=\"$instance\"}",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "used",
+          "legendFormat": "",
           "metric": "",
           "refId": "A",
-          "step": 240,
-          "target": ""
-        },
-        {
-          "expr": "redis_memory_max_bytes{instance=~\"$instance\"} ",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "max",
-          "refId": "B",
-          "step": 240
+          "step": 2
         }
       ],
-      "title": "Total Memory Usage",
-      "type": "timeseries"
+      "timeFrom": "1m",
+      "title": "Max Clients",
+      "type": "stat"
     },
     {
       "fieldConfig": {
@@ -711,7 +674,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 70,
+            "fillOpacity": 10,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -719,23 +682,26 @@
               "viz": false
             },
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 2,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "never",
+            "showPoints": "auto",
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "normal"
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "links": [],
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -749,23 +715,37 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "bytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#BF1B00",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 14
+        "y": 8
       },
-      "id": 16,
+      "id": 7,
       "links": [],
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": [],
           "displayMode": "table",
           "placement": "right"
         },
@@ -776,17 +756,26 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          "expr": "sum (redis_db_keys{instance=~\"$instance\"}) by (db)",
+          "expr": "redis_memory_used_bytes{instance=~\"$instance\"} ",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{ db }} ",
+          "legendFormat": "used",
+          "metric": "",
           "refId": "A",
           "step": 240,
           "target": ""
+        },
+        {
+          "expr": "redis_memory_max_bytes{instance=~\"$instance\"} ",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 2,
+          "legendFormat": "max",
+          "refId": "B",
+          "step": 240
         }
       ],
-      "title": "Total Items per DB",
+      "title": "Total Memory Usage",
       "type": "timeseries"
     },
     {
@@ -904,7 +893,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 10,
+            "fillOpacity": 70,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -921,12 +910,13 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
+          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -941,67 +931,23 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "none"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "evicts"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#890F02",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "memcached_items_evicted_total{instance=\"172.17.0.1:9150\",job=\"prometheus\"}"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#890F02",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "reclaims"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#3F6833",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 15
       },
-      "id": 8,
+      "id": 16,
       "links": [],
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "lastNotNull"
+          ],
           "displayMode": "table",
           "placement": "right"
         },
@@ -1012,28 +958,17 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          "expr": "sum(rate(redis_expired_keys_total{instance=~\"$instance\"}[5m])) by (instance)",
+          "expr": "sum (redis_db_keys{instance=~\"$instance\"}) by (db)",
           "format": "time_series",
-          "hide": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "expired",
-          "metric": "",
+          "legendFormat": "{{ db }} ",
           "refId": "A",
           "step": 240,
           "target": ""
-        },
-        {
-          "expr": "sum(rate(redis_evicted_keys_total{instance=~\"$instance\"}[5m])) by (instance)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "evicted",
-          "refId": "B",
-          "step": 240
         }
       ],
-      "title": "Expired / Evicted",
+      "title": "Total Items per DB",
       "type": "timeseries"
     },
     {
@@ -1125,6 +1060,153 @@
       ],
       "title": "Command Calls / sec",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "evicts"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#890F02",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "memcached_items_evicted_total{instance=\"172.17.0.1:9150\",job=\"prometheus\"}"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#890F02",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "reclaims"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#3F6833",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
+      "id": 8,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "expr": "sum(rate(redis_expired_keys_total{instance=~\"$instance\"}[5m])) by (instance)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "expired",
+          "metric": "",
+          "refId": "A",
+          "step": 240,
+          "target": ""
+        },
+        {
+          "expr": "sum(rate(redis_evicted_keys_total{instance=~\"$instance\"}[5m])) by (instance)",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "evicted",
+          "refId": "B",
+          "step": 240
+        }
+      ],
+      "title": "Expired / Evicted",
+      "type": "timeseries"
     }
   ],
   "refresh": "30s",
@@ -1185,7 +1267,7 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -1216,6 +1298,6 @@
   "timezone": "browser",
   "title": "App | Redis Dashboard",
   "uid": "FakWKRo7z",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
