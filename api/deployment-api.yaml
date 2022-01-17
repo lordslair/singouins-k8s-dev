@@ -59,11 +59,16 @@ spec:
             secretKeyRef:
               name: sep-backend-redis-secret
               key: redis-base
-        - name: SEP_ADMIN_TOKEN
+        - name: SEP_ADMIN_TOKEN # DEPRECATED - NEED TO REMOVE
           valueFrom:
             secretKeyRef:
               name: sep-backend-discord-secret
               key: admin-token
+        - name: SEP_INTERNAL_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-api-secret
+              key: api-internal-token
         - name: SEP_API_URL
           valueFrom:
             secretKeyRef:

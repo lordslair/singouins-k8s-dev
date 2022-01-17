@@ -57,6 +57,11 @@ spec:
             secretKeyRef:
               name: sep-backend-discord-secret
               key: admin-token
+        - name: SEP_INTERNAL_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sep-backend-api-secret
+              key: api-internal-token
         # PCS variables
         - name: SEP_PCS_URL
           valueFrom:
