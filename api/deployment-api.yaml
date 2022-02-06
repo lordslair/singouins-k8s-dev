@@ -27,9 +27,9 @@ spec:
 
       containers:
       - name: sep-backend-api
-        #command: ["/bin/sh"]
-        #args: ["-c", "while :; do sleep 12h; done;"]
-        image: lordslair/api:1c720a8
+#        command: ["/bin/sh"]
+#        args: ["-c", "while :; do sleep 12h; done;"]
+        image: lordslair/api:dev
         imagePullPolicy: Always
         resources:
           limits:
@@ -59,11 +59,6 @@ spec:
             secretKeyRef:
               name: sep-backend-redis-secret
               key: redis-base
-        - name: SEP_ADMIN_TOKEN # DEPRECATED - NEED TO REMOVE
-          valueFrom:
-            secretKeyRef:
-              name: sep-backend-discord-secret
-              key: admin-token
         - name: SEP_INTERNAL_TOKEN
           valueFrom:
             secretKeyRef:
